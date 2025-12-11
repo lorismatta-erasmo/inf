@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizza Dati Utenti</title>
+    <link rel="stylesheet" href="style-form-box-model.css">
+    <link rel="stylesheet" href="style-visualizza.css">
+</head>
+<body>
+    <div class="contenitore-visualizza">
+        <h1>Elenco Utenti Registrati</h1>
+        
+        <div class="sezione-filtri">
+            <form method="GET" action="get-utenti.php" class="form-filtri">
+                <div class="gruppo-filtro">
+                    <label for="ricerca">Ricerca (nome, cognome o email):</label>
+                    <input type="text" id="ricerca" name="ricerca" placeholder="Inserisci il nome o l'email...">
+                </div>
+
+                <div class="gruppo-filtro">
+                    <label for="genere">Filtro genere:</label>
+                    <select id="genere" name="genere">
+                        <option value="">-- Tutti --</option>
+                        <option value="maschio">Maschio</option>
+                        <option value="femmina">Femmina</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-cerca">Cerca</button>
+                <a href="visualizza-dati.html" class="btn-reset">Ripristina</a>
+            </form>
+        </div>
+
+        <div class="sezione-risultati">
+            <div class="messaggio-vuoto">
+                <p>Seleziona i filtri di ricerca e fai clic su "Cerca" per visualizzare gli utenti.</p>
+            </div>
+        </div>
+
+        <div class="sezione-link">
+            <a href="index.html" class="btn-link">← Torna alla Registrazione</a>
+        </div>
+    </div>
+</body>
+</html>
