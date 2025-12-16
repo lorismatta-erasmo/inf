@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 $nome         = $_POST['nome'];
 $cognome      = $_POST['cognome'];
 $genere       = $_POST['genere'];
-$data_nascita = $_POST['data-nascita'];   // NON CAMBIATO
+$data_nascita = $_POST['data-nascita']; 
 $email        = $_POST['email'];
 $password     = $_POST['password'];       // COLONNA DEL DB = password
 
