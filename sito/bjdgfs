@@ -1,0 +1,4 @@
+select v.voto, s.cognome
+	from voti v, alunni s 
+    where v.id_studente=s.id_studente
+    and voto >= (select MAX(v.voto) from voti v);

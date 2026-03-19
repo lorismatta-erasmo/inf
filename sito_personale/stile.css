@@ -1,0 +1,460 @@
+/*
+ * style.css
+ * ==========================================================================
+ * Portfolio Loris Matta - Foglio di stile principale (Ottimizzato)
+ * Questo file raggruppa: base, layout, hero, projects, about, footer e responsive.
+ * ==========================================================================
+ */
+
+/* ==========================================================================
+   1. RESET E VARIABILI GLOBALI
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-bg: #0a0a0a;
+    --secondary-bg: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #999999;
+    --border-color: #333333;
+    --gold: #ffd54a;
+    --gold-neon: #ffdf70;
+    --gold-glow: rgba(255, 223, 112, 0.20);
+    --accent-color: var(--gold-neon);
+    --transition: 0.3s ease;
+    
+    /* Variabili dinamiche dello sfondo (aggiornate via JS) */
+    --bg-h: 220; 
+    --bg-s: 18%; 
+    --bg-l: 6%;  
+    --bg-h2: calc(var(--bg-h) + 30);
+    --bg-l2: 14%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   2. TYPOGRAPHY E IMPOSTAZIONI BASE (OTTIMIZZATE)
+   ========================================================================== */
+body {
+    /* Ottimizzazione: Modern System Font Stack per un rendering nativo su ogni OS */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    
+    background: linear-gradient(180deg, hsl(var(--bg-h) var(--bg-s) var(--bg-l)) 0%, hsl(var(--bg-h2) var(--bg-s) var(--bg-l2)) 60%), 
+                radial-gradient(800px 400px at 10% 8%, rgba(255,215,74,0.03), transparent 12%), 
+                var(--primary-bg);
+    background-attachment: fixed;
+    transition: background 0.6s ease;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body { transition: none; }
+}
+
+/* Tipografia base */
+h1, h2, h3, h4, h5, h6 { font-weight: 600; line-height: 1.2; }
+h1 { font-size: 4rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.5rem; }
+p { opacity: 0.8; }
+
+/* Effetti Neon per i Titoli */
+h1, h2 {
+    text-shadow: 0 0 8px rgba(255,215,74,0.12), 0 0 20px rgba(255,215,74,0.06);
+}
+
+/* Link globali */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition);
+}
+a:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--gold-neon);
+}
+
+/* Utility Class: Testo e Bottoni Neon */
+.neon-text {
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--gold-neon), 0 0 24px var(--gold-glow);
+}
+.neon-btn {
+    background: linear-gradient(90deg, var(--gold-neon), var(--gold));
+    color: var(--primary-bg);
+    box-shadow: 0 6px 30px var(--gold-glow), 0 0 18px rgba(255,215,74,0.12) inset;
+    border: 1px solid rgba(255,215,74,0.12);
+}
+
+/* ==========================================================================
+   3. ANIMAZIONI DI INGRESSO E SFONDO (CON GPU ACCELERATION)
+   ========================================================================== */
+.preload-hide header,
+.preload-hide .container,
+.preload-hide footer,
+.preload-hide main,
+.preload-hide section,
+.preload-hide .about-page {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+}
+
+.preload-hide .container,
+.preload-hide header,
+.preload-hide footer {
+    transform: translateY(6px);
+}
+
+.container, header, footer, main, section, .about-page {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Blob Animati di Sfondo */
+.bg-animated {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    mix-blend-mode: screen;
+}
+
+.bg-animated .bg-blob {
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    max-width: 1000px;
+    max-height: 1000px;
+    border-radius: 50%;
+    filter: blur(80px) saturate(120%);
+    opacity: 0.6;
+    
+    /* Ottimizzazione: Forza il browser a usare la GPU per questa animazione */
+    will-change: transform; 
+    transform: translate3d(0,0,0);
+}
+
+.bg-blob.one {
+    left: -10vw; top: -20vh;
+    background: radial-gradient(circle at 30% 30%, rgba(255,215,74,0.25), rgba(255,215,74,0.08) 40%, transparent 60%);
+    animation: blobMove1 18s linear infinite;
+}
+.bg-blob.two {
+    right: -15vw; top: 10vh; width: 50vw; height: 50vw;
+    background: radial-gradient(circle at 60% 40%, rgba(255,223,112,0.20), rgba(255,223,112,0.06) 45%, transparent 70%);
+    animation: blobMove2 22s linear infinite;
+}
+.bg-blob.three {
+    left: 20vw; bottom: -10vh; width: 70vw; height: 70vw;
+    background: radial-gradient(circle at 40% 60%, rgba(255,240,200,0.14), rgba(255,240,200,0.04) 50%, transparent 75%);
+    animation: blobMove3 26s linear infinite;
+}
+
+@keyframes blobMove1 {
+    0% { transform: translate3d(0,0,0) scale(1); }
+    50% { transform: translate3d(6vw,6vh,0) scale(1.08); }
+    100% { transform: translate3d(0,0,0) scale(1); }
+}
+@keyframes blobMove2 {
+    0% { transform: translate3d(0,0,0) scale(1); }
+    50% { transform: translate3d(-8vw,4vh,0) scale(1.06) rotate(8deg); }
+    100% { transform: translate3d(0,0,0) scale(1); }
+}
+@keyframes blobMove3 {
+    0% { transform: translate3d(0,0,0) scale(1); }
+    50% { transform: translate3d(-4vw,-8vh,0) scale(1.04) rotate(-6deg); }
+    100% { transform: translate3d(0,0,0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bg-animated .bg-blob { animation: none; }
+}
+
+/* Layering Three.js */
+.three-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.three-bg canvas { width: 100%; height: 100%; display: block; }
+body > .three-bg + .bg-animated + .container,
+body > .three-bg + .container,
+body > .bg-animated + .container,
+body > .three-bg + * { position: relative; z-index: 1; }
+
+/* ==========================================================================
+   4. LAYOUT PRINCIPALE E HEADER
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    background: transparent;
+    z-index: 100;
+}
+
+.logo { font-weight: bold; font-size: 1.3rem; letter-spacing: 1px; }
+
+.home-button {
+    margin-left: 18px; padding: 8px 12px; border-radius: 6px;
+    border: 1px solid rgba(255,215,74,0.12);
+    background: linear-gradient(90deg, rgba(255,223,112,0.06), rgba(255,215,74,0.02));
+    color: var(--text-primary); font-weight: 600; cursor: pointer;
+    transition: box-shadow 0.25s ease, transform 0.15s ease;
+}
+.home-button:hover {
+    box-shadow: 0 8px 28px rgba(255,215,74,0.06);
+    transform: translateY(-2px);
+}
+
+nav ul { display: flex; gap: 30px; list-style: none; }
+nav a { font-size: 0.95rem; opacity: 0.7; transition: opacity var(--transition), color var(--transition); position: relative; }
+nav a:hover { opacity: 1; color: var(--accent-color); }
+nav a::after {
+    content: ''; position: absolute; bottom: -5px; left: 0;
+    width: 0; height: 2px; background: var(--accent-color);
+    transition: width var(--transition);
+}
+nav a:hover::after { width: 100%; }
+nav a[aria-current="page"] { opacity: 1; color: var(--accent-color); }
+nav a[aria-current="page"]::after { width: 100%; }
+
+/* ==========================================================================
+   5. SEZIONE HERO
+   ========================================================================== */
+.hero {
+    height: 80vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start; padding: 60px 0;
+}
+.hero h1 {
+    font-size: 5rem; line-height: 1.1; margin-bottom: 30px;
+    letter-spacing: -2px; font-weight: 700; max-width: 900px;
+}
+.hero h1 strong {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--gold-neon), 0 0 28px var(--gold-glow);
+}
+.hero p {
+    font-size: 1.5rem; opacity: 0.6; max-width: 600px; margin-bottom: 40px;
+}
+.hero .cta-button {
+    padding: 15px 40px; border-radius: 6px; font-weight: 700; display: inline-block;
+    background: linear-gradient(90deg, var(--gold-neon), var(--gold)); color: var(--primary-bg);
+    transition: all var(--transition);
+    box-shadow: 0 10px 40px var(--gold-glow), 0 0 18px rgba(255,215,74,0.06) inset;
+}
+.hero .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 60px var(--gold-glow), 0 0 30px var(--gold-neon);
+}
+
+/* ==========================================================================
+   6. SEZIONE PROGETTI E CARD
+   ========================================================================== */
+.projects { padding: 100px 0; }
+.projects h2 {
+    font-size: 2.5rem; margin-bottom: 60px;
+    border-bottom: 1px solid var(--border-color); padding-bottom: 20px;
+}
+.grid {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* Forza esattamente 3 colonne */
+    gap: 40px; 
+    margin-bottom: 80px;
+}
+.card-link { display: block; color: inherit; text-decoration: none; }
+.card-link:focus { outline: 2px solid var(--accent-color); outline-offset: 4px; }
+
+.card {
+    background: var(--secondary-bg); border-radius: 8px; overflow: hidden;
+    transition: all var(--transition); border: 1px solid var(--border-color);
+    cursor: pointer; display: flex; flex-direction: column;
+    min-height: 300px; position: relative;
+}
+.card-content {
+    padding: 35px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;
+}
+body[data-bg="project"] .card-content { padding: 25px; }
+
+.card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--accent-color) 0%, transparent 100%);
+    opacity: 0; transition: opacity var(--transition);
+}
+.card:hover {
+    transform: translateY(-10px); border-color: var(--accent-color);
+    box-shadow: 0 20px 40px rgba(74, 158, 255, 0.1);
+}
+.card:hover::before { opacity: 0.05; }
+
+.card-image {
+    width: 100%; height: 60%;
+    background: linear-gradient(135deg, #1a3a52 0%, #0f2744 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; color: var(--text-secondary);
+}
+.card-content h3 { font-size: 1.3rem; margin-bottom: 10px; }
+.card-content p { font-size: 0.95rem; opacity: 0.6; line-height: 1.5; }
+
+.card-content .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
+.tag {
+    display: inline-block; background: var(--primary-bg); padding: 4px 10px;
+    border-radius: 3px; font-size: 0.8rem; color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+/* ==========================================================================
+   7. SEZIONE ABOUT
+   ========================================================================== */
+.about-page .split {
+    display: grid; grid-template-columns: 1fr 1.25fr; gap: 48px;
+    align-items: start; padding: 80px 0;
+}
+.about-page .left { display: flex; flex-direction: column; gap: 20px; }
+
+.photo-wrap { width: 100%; max-width: 320px; }
+.portrait {
+    width: 100%; height: auto; border-radius: 8px; display: block;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 30px var(--gold-glow);
+}
+
+.personal h1 { font-size: 2rem; margin-bottom: 6px; }
+.personal .role { opacity: 0.8; margin-bottom: 12px; }
+.personal-data { list-style: none; padding: 0; margin: 0 0 16px 0; }
+.personal-data li { margin-bottom: 8px; opacity: 0.9; }
+
+.right h2 { margin-top: 0; font-size: 1.6rem; }
+
+.skills {
+    list-style: none; padding: 0; display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 24px;
+}
+.skills li {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03), transparent);
+    padding: 8px 12px; border-radius: 6px;
+}
+
+.experiences { padding: 40px 0 80px; }
+.experiences h2 { margin-bottom: 18px; }
+.timeline { display: grid; gap: 18px; }
+.timeline-item {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    padding: 18px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.04);
+}
+.timeline-item h3 { margin: 0 0 8px 0; }
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+footer {
+    border-top: 1px solid var(--border-color);
+    padding: 80px 0 40px; margin-top: 100px;
+}
+.footer-content { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+.footer-section h3 { margin-bottom: 20px; font-size: 1.1rem; }
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 12px; }
+.footer-section a { opacity: 0.7; transition: opacity var(--transition); }
+.footer-section a:hover { opacity: 1; color: var(--accent-color); text-shadow: 0 0 8px var(--gold-neon); }
+
+.social-links { display: flex; gap: 20px; margin-top: 20px; }
+.social-links a {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border: 1px solid var(--border-color);
+    border-radius: 50%; transition: all var(--transition);
+}
+.social-links a:hover {
+    border-color: var(--accent-color); background: var(--accent-color);
+    color: var(--primary-bg); box-shadow: 0 8px 36px var(--gold-glow), 0 0 18px var(--gold-neon);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border-color); padding-top: 30px;
+    display: flex; justify-content: space-between; align-items: center;
+    opacity: 0.6; font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   9. MEDIA QUERIES E RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Schermi molto larghi */
+@media (min-width: 1920px) {
+    .container { padding: 0 40px; }
+    .hero h1 { font-size: 6rem; }
+}
+
+/* Tablet e schermi medi (fino a 1024px) */
+@media (max-width: 1024px) {
+    .container { padding: 0 30px; }
+    .hero h1 { font-size: 4rem; }
+    .hero p { font-size: 1.2rem; }
+    .card { height: 350px; }
+}
+
+/* Modifiche intermedie per la griglia e la pagina About (< 900px) */
+@media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 30px; } /* Spostato qui! */
+    .about-page .split { grid-template-columns: 1fr; }
+    .photo-wrap { max-width: 240px; }
+}
+/* Dispositivi Mobile e Tablet piccoli (fino a 768px) */
+@media (max-width: 768px) {
+    body { font-size: 14px; }
+    .container { padding: 0 15px; }
+    
+    header { padding: 20px 0; flex-direction: column; gap: 20px; }
+    nav ul { gap: 15px; font-size: 0.85rem; }
+    
+    .hero { height: 60vh; padding: 40px 0; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 20px; }
+    .hero p { font-size: 1rem; }
+    
+    .projects { padding: 60px 0; }
+    .projects h2 { font-size: 1.8rem; }
+    .grid { grid-template-columns: 1fr; gap: 30px; }
+    .card { min-height: 260px; height: 350px; }
+    body[data-bg="project"] .card { min-height: 260px; }
+    
+    footer { padding: 40px 0 20px; }
+    .footer-content { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+}
+
+/* Smartphone piccoli (fino a 480px) */
+@media (max-width: 480px) {
+    body { font-size: 12px; }
+    .hero h1 { font-size: 2rem; }
+    nav ul { gap: 10px; }
+    nav a { font-size: 0.8rem; }
+    .projects h2 { font-size: 1.5rem; margin-bottom: 30px; }
+    .card { height: 300px; }
+    .card-content { padding: 15px; }
+}
+
+/* Schermi molto piccoli (aggiustamenti minimi timeline) */
+@media (max-width: 700px) {
+    .timeline-item { padding: 14px; }
+}
+
+/* Stili di stampa (Print Stylesheet) */
+@media print {
+    header, footer, nav { display: none; }
+    body { background: white; color: black; }
+}

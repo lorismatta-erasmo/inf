@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Progetto di simulazione robotica: controllo di un braccio robotico virtuale." />
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Progetto Robotica - Portfolio Loris Matta</title>
+    <link rel="stylesheet" href="stile.css">
+</head>
+<body data-bg="robot">
+    <div class="bg-animated" aria-hidden="true">
+        <div class="bg-blob one"></div>
+        <div class="bg-blob two"></div>
+        <div class="bg-blob three"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">Loris Matta</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#work">Lavori</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html#contact">Contatti</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Simulazione Robotica</h1>
+            <p>Ho sperimentato con un braccio robotico virtuale per comprendere cinematica, traiettorie e controllo del movimento.</p>
+            <a href="index.html?from=robot" class="cta-button">Torna ai progetti</a>
+        </section>
+
+        <main class="projects">
+            <div class="grid" style="max-width: 960px; margin: 0 auto;">
+                <div class="card">
+                    <div class="card-image">🤖</div>
+                    <div class="card-content">
+                        <div>
+                            <h3>Obiettivo</h3>
+                            <p>Capire come impostare traiettorie e punti di controllo per un braccio robotico in simulazione, visualizzando la posizione e le angolazioni in tempo reale.</p>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Robotica</span>
+                            <span class="tag">Cinematica</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image">🧪</div>
+                    <div class="card-content">
+                        <div>
+                            <h3>Strumenti</h3>
+                            <ul style="opacity:0.8; line-height:1.5; padding-left: 18px;">
+                                <li>Simulatore 3D (ad es. Gazebo, V-REP o Webots)</li>
+                                <li>Script Python/Matlab per generare traiettorie</li>
+                                <li>Visualizzazione dati e grafici di posizione</li>
+                            </ul>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Simulazione</span>
+                            <span class="tag">Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image">🎯</div>
+                    <div class="card-content">
+                        <div>
+                            <h3>Risultati</h3>
+                            <p>Ho ottenuto traiettorie fluide, controlli precisi e una migliore comprensione di come passare dalla matematica della cinematica al codice effettivo.</p>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Analisi</span>
+                            <span class="tag">Visualizzazione</span>
+                            <span class="tag">Ottimizzazione</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="project-details" style="margin: 40px 0;">
+                <h2>Codice di esempio</h2>
+                <p>Un semplice script Python per generare una traiettoria lineare per un braccio robotico e stampare gli angoli delle giunture:</p>
+                <pre style="background: rgba(255,255,255,0.05); padding: 18px; border-radius: 10px; overflow-x: auto;">
+import numpy as np
+
+def linear_trajectory(start, end, steps=20):
+    return np.linspace(start, end, steps)
+
+# Esempio: punto iniziale (x,y) -> punto finale (x,y)
+start = np.array([0.2, 0.1])
+end = np.array([0.5, 0.4])
+
+for point in linear_trajectory(start, end):
+    # Qui si calcolano gli angoli con la cinematica inversa (es. 2DOF)
+    # angle1, angle2 = inverse_kinematics(point)
+    # print(f"Angoli: {angle1:.2f}, {angle2:.2f}")
+    print(f"Punto: {point[0]:.2f}, {point[1]:.2f}")
+                </pre>
+                <p>Questo approccio aiuta a capire come trasformare un percorso desiderato (in coordinate cartesiane) in comandi per i motori del braccio.</p>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Informazioni</h3>
+                        <ul>
+                            <li><a href="index.html#about">Chi sono</a></li>
+                            <li><a href="index.html#about">Competenze</a></li>
+                            <li><a href="index.html#about">Esperienza</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Contatti</h3>
+                        <p style="margin-bottom: 20px;">Contattami per collaborazioni</p>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/lori.ita.42/" title="Instagram" target="_blank">📷</a>
+                            <a href="https://github.com/Crazy4242" title="GitHub" target="_blank">⚙</a>
+                            <a href="mailto:loriselbarto42@gmail.com" title="Email">✉</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Loris Matta. Tutti i diritti riservati.</p>
+                    <p>Realizzato con ❤️</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="scripts/scroll-bg.js" defer></script>
+    <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+    <script src="scripts/three-bg.js" defer></script>
+    <script src="scripts/nav-animate.js" defer></script>
+</body>
+</html>
